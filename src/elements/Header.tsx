@@ -29,6 +29,7 @@ export function Header() {
             return (
               <Button
                 key={item.label}
+                asChild
                 variant="ghost"
                 className="gap-2 px-4 text-gray-700 hover:text-green-600 hover:bg-green-50"
               >

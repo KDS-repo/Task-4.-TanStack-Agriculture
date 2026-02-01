@@ -1,6 +1,6 @@
 import { createRouter, createRoute, createRootRoute, Outlet } from '@tanstack/react-router'
-import { Header } from '@/Header'
-import { HomePage } from '@/HomePage'
+import { Header } from '@/elements/Header'
+import { HomePage } from '@/pages/HomePage'
 
 // Similar to RTK Router, it is a utility element, a base for routing in the app
 const RootComponent = () => {
