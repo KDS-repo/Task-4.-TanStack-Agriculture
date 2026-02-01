@@ -9,14 +9,15 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Link } from "@tanstack/react-router"
 
 export function Header() {
   const navItems = [
-    { label: "Home"},
-    { label: "My plots"},
-    { label: "Contacts"},
-    { label: "Shop"},
-    { label: "Wallet"},
+    { label: "Home", path: "/" },
+    { label: "My plots", path: "/my-plots" },
+    { label: "Contacts", path: "/contacts" },
+    { label: "Shop", path: "/shop" },
+    { label: "Wallet", path: "/wallet" },
   ]
 
   return (
@@ -31,13 +32,14 @@ export function Header() {
                 variant="ghost"
                 className="gap-2 px-4 text-gray-700 hover:text-green-600 hover:bg-green-50"
               >
-                {item.label}
+                <Link to={item.path}>
+                  {item.label}
+                </Link>
               </Button>
             )
           })}
         </nav>
 
-        {/* Right Side Icons */}
         <div className="flex items-center gap-3">
           {/* Cart with Badge */}
           <Button variant="ghost" size="icon" className="relative text-gray-700 hover:text-green-600">
