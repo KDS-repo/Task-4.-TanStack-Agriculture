@@ -1,7 +1,15 @@
 import { Button } from "@/components/ui/button"
 import { Skeleton } from "../components/ui/skeleton"
+import { useImages } from "@/hooks/useImages"
 
 export function HomePage() {
+  const { data: products, isLoading, error } = useImages(3)
+  const cardText = [
+    "Rent your own piece of farmland and watch your vegetables grow.",
+    "Enjoy, year after year, the wonders of nature with your rented vegetable farmland (60 sqm / 30 sqm).",
+    "Grow your own piece of land, from planting seeds in the lush soil to harvesting your own vegetables."
+  ]
+
   return (
     <>
       <section className="w-full pt-32 pb-16 md:pt-40 md:pb-24">
@@ -18,18 +26,32 @@ export function HomePage() {
           </Button>
         </div>
       </section>
-      
+
       <section className="container mx-auto px-4 pb-24">
         <div className="flex flex-col md:flex-row gap-6 max-w-6xl mx-auto">
-          <div className="flex-1">
-            <ImageCard text="Rent your own piece of farmland and watch your vegetables grow." />
-          </div>
-          <div className="flex-1">
-            <ImageCard text="Enjoy, year after year, the wonders of nature with your rented vegetable farmland (60 sqm / 30 sqm)." />
-          </div>
-          <div className="flex-1">
-            <ImageCard text="Grow your own piece of land, from planting seeds in the lush soil to harvesting your own vegetables." />
-          </div>
+          {isLoading ? (
+            // Show skeletons while loading
+            Array.from({ length: 3 }).map((_, index) => (
+              <div key={index} className="flex-1">
+                <ImageCard imageUrl="" text={cardText[index]} />
+              </div>
+            ))
+          ) : error ? (
+            // Error message on the page
+            <div className="col-span-3 text-center py-12">
+              <p className="text-red-600">Failed to load images. Please try again later.</p>
+            </div>
+          ) : (
+            // Images if loaded without error
+            products?.map((product, index) => (
+              <div key={product.id} className="flex-1">
+                <ImageCard
+                  imageUrl={product.thumbnail || product.images[0]}
+                  text={cardText[index]}
+                />
+              </div>
+            ))
+          )}
         </div>
       </section>
     </>
@@ -37,15 +59,21 @@ export function HomePage() {
 }
 
 interface ImageCardProps {
+  imageUrl: string
   text: string
 }
 
-function ImageCard({ text }: ImageCardProps) {
+function ImageCard({ imageUrl, text }: ImageCardProps) {
   return (
     <div className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-lg transition-all hover:shadow-xl h-64">
-      
-      <Skeleton className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200" />
-
+      {(imageUrl === "") ? (
+        <Skeleton className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200" />
+      ) : (
+        <img
+          src={imageUrl}
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+      )}
       <div className="absolute inset-x-[15px] bottom-[15px] bg-white border-2 rounded-[10px] px-[8px] py-[15px]">
         <p className="text-sm md:text-base">{text}</p>
       </div>
