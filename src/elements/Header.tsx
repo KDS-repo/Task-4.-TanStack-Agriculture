@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button"
-import { ShoppingCart, User, ChevronDown } from "lucide-react"
+import { ShoppingCart, ChevronDown } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import {
   DropdownMenu,
@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Link } from "@tanstack/react-router"
+import { useAuth } from "@/hooks/useAuth"
 
 export function Header() {
   const navItems = [
@@ -19,6 +20,8 @@ export function Header() {
     { label: "Shop", path: "/shop" },
     { label: "Wallet", path: "/wallet" },
   ]
+
+  const { user, logout } = useAuth()
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
@@ -53,48 +56,61 @@ export function Header() {
           </Button>
 
           {/* Account Dropdown */}
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="flex items-center gap-2 hover:bg-green-50">
-                <Avatar className="h-8 w-8">
-                  <AvatarImage 
-                    src="https://api.dicebear.com/7.x/avataaars/svg?seed=John" 
-                    alt="User"
-                  />
-                  <AvatarFallback className="bg-gradient-to-br from-green-500 to-emerald-600 text-white">
-                    JD
-                  </AvatarFallback>
-                </Avatar>
-                <ChevronDown className="h-4 w-4 text-gray-500" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-56">
-              <div className="flex items-center gap-3 p-2">
-                <Avatar className="h-9 w-9">
-                  <AvatarImage src="https://api.dicebear.com/7.x/avataaars/svg?seed=John" />
-                  <AvatarFallback className="bg-gradient-to-br from-green-500 to-emerald-600 text-white">
-                    JD
-                  </AvatarFallback>
-                </Avatar>
-                <div>
-                  <p className="font-medium text-sm">John Doe</p>
-                  <p className="text-xs text-gray-500">john@example.com</p>
+          {user ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="flex items-center gap-2 p-1 hover:bg-transparent">
+                  <Avatar className="h-8 w-8">
+                    <AvatarImage 
+                      src={user.image} 
+                      alt={user.username}
+                    />
+                    <AvatarFallback className="bg-gradient-to-br from-green-500 to-emerald-600 text-white">
+                      {user.firstName?.charAt(0)}{user.lastName?.charAt(0)}
+                    </AvatarFallback>
+                  </Avatar>
+                  <ChevronDown className="h-4 w-4 text-gray-500" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                <div className="flex items-center gap-3 p-2">
+                  <Avatar className="h-9 w-9">
+                    <AvatarImage src={user.image} />
+                    <AvatarFallback className="bg-gradient-to-br from-green-500 to-emerald-600 text-white">
+                      {user.firstName?.charAt(0)}{user.lastName?.charAt(0)}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <p className="font-medium text-sm">
+                      {user.firstName} {user.lastName}
+                    </p>
+                    <p className="text-xs text-gray-500">{user.email}</p>
+                  </div>
                 </div>
-              </div>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem className="cursor-pointer hover:bg-green-50 focus:bg-green-50">
-                <div className="flex items-center gap-2 w-full">
-                  Account Information
-                </div>
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem className="cursor-pointer text-red-600 hover:bg-red-50 focus:bg-red-50 focus:text-red-600">
-                <div className="flex items-center gap-2 w-full">
-                  Log out
-                </div>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem className="cursor-pointer hover:bg-green-50 focus:bg-green-50">
+                  <div className="flex items-center gap-2 w-full">
+                    Account Information
+                  </div>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem 
+                  className="cursor-pointer text-red-600 hover:bg-red-50 focus:bg-red-50 focus:text-red-600"
+                  onClick={logout}
+                >
+                  <div className="flex items-center gap-2 w-full">
+                    Log out
+                  </div>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <Button asChild variant="ghost" className="gap-2">
+              <Link to="/login">
+                Sign in
+              </Link>
+            </Button>
+          )}
         </div>
 
         {/* Mobile Menu Button */}

@@ -1,7 +1,8 @@
 import { createRouter, createRoute, createRootRoute, Outlet } from '@tanstack/react-router'
 import { Header } from '@/elements/Header'
 import { HomePage } from '@/pages/HomePage'
-import { ShopPage } from './pages/Shop'
+import { ShopPage } from '@/pages/Shop'
+import { LoginPage } from '@/pages/Login'
 
 // Similar to RTK Router, it is a utility element, a base for routing in the app
 const RootComponent = () => {
@@ -30,8 +31,14 @@ const shopRoute = createRoute({
   component: ShopPage,
 })
 
+const loginRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/login',
+  component: LoginPage,
+})
+
 // This organizes '/' and 'shop' into '/shop'
-const routeTree = rootRoute.addChildren([indexRoute, shopRoute])
+const routeTree = rootRoute.addChildren([indexRoute, shopRoute, loginRoute])
 
 export const router = createRouter({ routeTree })
 
