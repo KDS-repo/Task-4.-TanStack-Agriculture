@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button"
-import { ShoppingCart, ChevronDown } from "lucide-react"
+import { ShoppingCart, ChevronDown, Menu } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import {
   DropdownMenu,
@@ -9,10 +9,14 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Link } from "@tanstack/react-router"
+import { Link, useLocation } from "@tanstack/react-router"
 import { useAuth } from "@/hooks/useAuth"
+import { useState } from "react"
 
 export function Header() {
+  const { user, logout } = useAuth()
+  const location = useLocation()
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const navItems = [
     { label: "Home", path: "/" },
     { label: "Locations", path: "/locations" },
@@ -21,12 +25,18 @@ export function Header() {
     { label: "Wallet", path: "/wallet" },
   ]
 
-  const { user, logout } = useAuth()
-
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
+    <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-opacity-50">
       <div className="container mx-auto flex h-16 items-center justify-end px-4 md:px-6">
-        {/* Desktop Navigation */}
+        <Button
+          variant="ghost"
+          size="icon"
+          className="md:hidden"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        >
+          <Menu className="h-5 w-5" />
+        </Button>
+
         <nav className="hidden md:flex items-center gap-1">
           {navItems.map((item) => {
             return (
@@ -34,10 +44,11 @@ export function Header() {
                 key={item.label}
                 asChild
                 variant="ghost"
-                className="gap-2 px-4 text-gray-700 hover:text-green-600 hover:bg-green-50"
+                className="group gap-2 px-4 text-gray-700 hover:bg-empty"
               >
-                <Link to={item.path}>
+                <Link to={item.path} className="relative">
                   {item.label}
+                  <span className={`absolute left-0 -bottom-1 w-0 h-1 bg-green-600 rounded-full ${location.pathname === item.path ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
                 </Link>
               </Button>
             )
@@ -45,7 +56,6 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-3">
-          {/* Cart with Badge */}
           <Button variant="ghost" size="icon" className="relative text-gray-700 hover:text-green-600">
             <ShoppingCart className="h-5 w-5" />
             <Badge 
@@ -55,7 +65,6 @@ export function Header() {
             </Badge>
           </Button>
 
-          {/* Account Dropdown */}
           {user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -113,25 +122,30 @@ export function Header() {
           )}
         </div>
 
-        {/* Mobile Menu Button */}
-        <Button variant="ghost" size="icon" className="md:hidden">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="h-5 w-5"
-          >
-            <line x1="4" x2="20" y1="12" y2="12" />
-            <line x1="4" x2="20" y1="6" y2="6" />
-            <line x1="4" x2="20" y1="18" y2="18" />
-          </svg>
-        </Button>
+        {isMobileMenuOpen && (
+          <div className="absolute top-16 left-0 right-0 md:hidden bg-white border-b shadow-lg">
+            <div className="container mx-auto px-4 py-4">
+              <nav className="flex flex-col gap-2">
+                {navItems.map((item) => {
+                  return (
+                    <Button
+                      key={item.label}
+                      asChild
+                      variant="ghost"
+                      className="group justify-start px-4 py-3 text-gray-700 hover:bg-green-50"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      <Link to={item.path} className="relative w-full text-left">
+                        {item.label}
+                        <span className={`absolute left-0 -bottom-1 w-0 h-1 bg-green-600 rounded-full ${location.pathname === item.path ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
+                      </Link>
+                    </Button>
+                  )
+                })}
+              </nav>
+            </div>
+          </div>
+        )}
       </div>
     </header>
   )
