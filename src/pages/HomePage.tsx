@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { Skeleton } from "../components/ui/skeleton"
+import mapImage from '@/img/map.png'
 
 export function HomePage() {
   return (
@@ -43,7 +44,9 @@ interface ImageCardProps {
 function ImageCard({ text }: ImageCardProps) {
   return (
     <div className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-lg transition-all hover:shadow-xl h-64">
-      
+      <img
+          src={mapImage} >
+          </img>
       <Skeleton className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200" />
 
       <div className="absolute inset-x-[15px] bottom-[15px] bg-white border-2 rounded-[10px] px-[8px] py-[15px]">
