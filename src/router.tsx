@@ -3,6 +3,7 @@ import { Header } from '@/elements/Header'
 import { HomePage } from '@/pages/HomePage'
 import { ShopPage } from '@/pages/Shop'
 import { LoginPage } from '@/pages/Login'
+import { Locations } from './pages/Locations'
 
 // Similar to RTK Router, it is a utility element, a base for routing in the app
 const RootComponent = () => {
@@ -37,8 +38,14 @@ const loginRoute = createRoute({
   component: LoginPage,
 })
 
+const locationsRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/locations',
+  component: Locations,
+})
+
 // This organizes '/' and 'shop' into '/shop'
-const routeTree = rootRoute.addChildren([indexRoute, shopRoute, loginRoute])
+const routeTree = rootRoute.addChildren([indexRoute, shopRoute, loginRoute, locationsRoute])
 
 export const router = createRouter({ routeTree })
 

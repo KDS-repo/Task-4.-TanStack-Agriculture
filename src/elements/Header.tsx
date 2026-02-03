@@ -15,7 +15,7 @@ import { useAuth } from "@/hooks/useAuth"
 export function Header() {
   const navItems = [
     { label: "Home", path: "/" },
-    { label: "My plots", path: "/my-plots" },
+    { label: "Locations", path: "/locations" },
     { label: "Contacts", path: "/contacts" },
     { label: "Shop", path: "/shop" },
     { label: "Wallet", path: "/wallet" },
