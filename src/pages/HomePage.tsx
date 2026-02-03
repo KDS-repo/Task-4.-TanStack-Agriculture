@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { Skeleton } from "../components/ui/skeleton"
+import mapImage from '@/img/map.png'
 import { useImages } from "@/hooks/useImages"
 
 export function HomePage() {
