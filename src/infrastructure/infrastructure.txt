@@ -1,0 +1,2 @@
+This folder is subject to a rewrite. The dependency tree starts to feel all over the place.
+On the other hand, perhaps all types could be moved here, unless it makes them too imperceptable.
