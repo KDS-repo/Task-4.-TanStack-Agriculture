@@ -1,5 +1,5 @@
 import { createRouter, createRoute, createRootRoute, Outlet } from '@tanstack/react-router'
-import { Header } from '@/elements/Header'
+import { Header } from '@/components/Header'
 import { HomePage } from '@/pages/HomePage'
 import { ShopPage } from '@/pages/Shop'
 import { LoginPage } from '@/pages/Login'

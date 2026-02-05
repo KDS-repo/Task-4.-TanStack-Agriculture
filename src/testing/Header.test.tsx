@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen, renderHook, act, fireEvent } from '@testing-library/react'
-import { Header } from '@/elements/Header'
+import { Header } from '@/components/Header'
 
 // Mock the function that is called when some Links are clicked so it can be tracked
 const mockNavigate = vi.fn()

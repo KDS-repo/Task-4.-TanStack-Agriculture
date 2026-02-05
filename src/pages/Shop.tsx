@@ -1,8 +1,10 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { MapPin, Filter, ChevronDown } from "lucide-react"
+import { useImages } from "@/hooks/useImages"
 
 export function ShopPage() {
+  const { data: products, isLoading, error } = useImages(3)
   const plots = [
     {
       title: "Vegetable field S - unplanted in Edenbridge, Kent",
@@ -51,32 +53,33 @@ export function ShopPage() {
 
         {/* Property Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {plots.map((property, index) => (
+          {!isLoading && products?.map((property, index) => (
             <Card key={index} className="flex flex-col h-full border-gray-200 hover:shadow-lg transition-shadow">
               <CardHeader className="pb-3">
+                <img src={property.images[0]} alt="" />
                 <h3 className="text-lg font-semibold text-gray-900 leading-tight">
-                  {property.title}
+                  {plots[index].title}
                 </h3>
               </CardHeader>
               
               <CardContent className="space-y-4 flex-grow">
                 <div className="flex items-center gap-2">
                   <div>
-                    <span className="font-medium text-gray-900">{property.country}</span>
+                    <span className="font-medium text-gray-900">{plots[index].country}</span>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-2">
                   <div>
                     <span className="text-sm text-gray-600">Size: </span>
-                    <span className="font-medium text-gray-900">{property.size}</span>
+                    <span className="font-medium text-gray-900">{plots[index].size}</span>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-2">
                   <div>
                     <span className="text-sm text-gray-600">Guide Price: </span>
-                    <span className="font-medium text-gray-900">{property.price}</span>
+                    <span className="font-medium text-gray-900">{plots[index].price}</span>
                   </div>
                 </div>
               </CardContent>
