@@ -44,7 +44,7 @@ export function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 font-brand-sans">
       <Card className="w-full max-w-md mx-4">
         <CardHeader>
           <CardTitle className="text-2xl flex items-center gap-2">
@@ -84,7 +84,7 @@ export function LoginPage() {
             
             <Button
               type="submit"
-              className="w-full bg-green-600 hover:bg-green-700"
+              className="w-full bg-brand-green hover:bg-brand-green hover:shadow-md/20 transition-shadow"
               disabled={loginMutation.isPending}
             >
               {loginMutation.isPending ? 'Signing in...' : 'Sign in'}

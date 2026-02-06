@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=DM+Serif+Text:ital@0;1&display=swap');
 
 @custom-variant dark (&:is(.dark *));
 
@@ -42,6 +43,12 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --color-brand-green: #68d017;
+  --color-brand-celery: #F0FEE2;
+  --color-brand-ash: #F1F1F1;
+  --color-brand-grey: #EAEAEA;
+  --font-brand-sans: "DM Sans", var(--font-sans);
+  --font-brand-serif: "DM Serif", var(--font-serif);
 }
 
 :root {

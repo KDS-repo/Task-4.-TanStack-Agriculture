@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button"
 import { Skeleton } from "../components/ui/skeleton"
-import mapImage from '@/img/map.png'
 import { useImages } from "@/hooks/useImages"
 
 export function HomePage() {
@@ -12,16 +11,16 @@ export function HomePage() {
   ]
 
   return (
-    <>
+    <div className="bg-brand-celery">
       <section className="w-full pt-32 pb-16 md:pt-40 md:pb-24">
         <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-8 leading-tight max-w-4xl mx-auto">
+          <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-gray-900 font-brand-serif mb-8 leading-tight max-w-4xl mx-auto">
             Rent your own field, invest in farming, and grow your own vegetables
           </h1>
 
           <Button
             size="lg"
-            className="bg-green-600 hover:bg-green-700 text-white px-10 py-6 text-lg md:text-xl font-semibold rounded-lg"
+            className="bg-brand-green hover:bg-brand-green hover:shadow-md/20 transition-shadow px-10 py-6 text-md font-brand-sans rounded-lg"
           >
             Let's start
           </Button>
@@ -45,7 +44,7 @@ export function HomePage() {
           ) : (
             // Images if loaded without error
             products?.map((product, index) => (
-              <div key={product.id} className="flex-1">
+              <div key={product.id} className="flex-1 font-brand-sans">
                 <ImageCard
                   imageUrl={product.thumbnail || product.images[0]}
                   text={cardText[index]}
@@ -55,7 +54,7 @@ export function HomePage() {
           )}
         </div>
       </section>
-    </>
+    </div>
   )
 }
 
@@ -66,7 +65,7 @@ interface ImageCardProps {
 
 function ImageCard({ imageUrl, text }: ImageCardProps) {
   return (
-    <div className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-lg transition-all hover:shadow-xl h-64">
+    <div className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-md hover:shadow-lg/20 transition-shadow h-64">
       {(imageUrl === "") ? (
         <Skeleton className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200" />
       ) : (
@@ -75,11 +74,9 @@ function ImageCard({ imageUrl, text }: ImageCardProps) {
           className="absolute inset-0 w-full h-full object-cover"
         />
       )}
-      <div className="absolute inset-x-[15px] bottom-[15px] bg-white border-2 rounded-[10px] px-[8px] py-[15px]">
+      <div className="absolute inset-x-4 bottom-4 bg-white border-2 rounded-[10px] px-2 py-[15px]">
         <p className="text-sm md:text-base">{text}</p>
       </div>
-
-      <div className="absolute inset-0 bg-green-600/0 group-hover:bg-green-600/10 transition-colors duration-300" />
     </div>
   )
 }
