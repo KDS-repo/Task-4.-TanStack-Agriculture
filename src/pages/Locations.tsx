@@ -17,33 +17,35 @@ export function Locations() {
   ]
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen">
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8 text-center">
-          <h1 className="text-3xl font-bold text-gray-900">Locations</h1>
+          <h1 className="text-3xl font-bold text-gray-900 font-brand-serif">
+            Locations
+          </h1>
         </div>
 
 
-        <div className="flex justify-center mb-8">
-          <div className="w-full max-w-2xl bg-white rounded-xl border border-gray-200 p-2">
+        <div className="flex justify-center mb-8 font-brand-sans">
+          <div className="w-full max-w-2xl bg-brand-grey rounded-xl border border-gray-200 p-2">
             <div className="flex flex-col md:flex-row gap-4">
 
               <div className="flex-1 relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4" />
                 <Input
                   placeholder="Search by city, country, village places"
-                  className="pl-10 border-none shadow-none"
+                  className="pl-10 border-none shadow-none focus:border-none focus:shadow-none"
                 />
               </div>
 
-              <Button variant="outline" className="gap-2 bg-green-600 hover:bg-green-700 text-white">
+              <Button className="gap-2 bg-brand-green hover:bg-brand-green hover:shadow-md/20 transition-shadow">
                 Search
               </Button>
             </div>
           </div>
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-8">
+        <div className="flex flex-col lg:flex-row gap-8 font-brand-sans">
           <div className="lg:w-3/5">
             <div className="flex items-center justify-between gap-3 mb-6">
               <Button variant="outline" className="gap-2">
@@ -76,7 +78,7 @@ export function Locations() {
                         </div>
                       </div>
                     </div>
-                    <Button variant="outline" className="border-green-600 hover:bg-green-700">
+                    <Button variant="outline" className="border-brand-green hover:bg-brand-green">
                       Shop
                     </Button>
                   </CardFooter>

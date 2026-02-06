@@ -26,8 +26,8 @@ export function Header() {
   ]
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-opacity-50">
-      <div className="container mx-auto flex h-16 items-center justify-end px-4 md:px-6">
+    <header className={`sticky top-0 z-50 w-full border-b ${location.pathname === '/' ? 'bg-brand-celery/95' : 'bg-white/95'}`}>
+      <div className="container mx-auto flex gap-4 h-16 items-center justify-end px-4 md:px-6">
         <Button
           variant="ghost"
           size="icon"
@@ -44,11 +44,11 @@ export function Header() {
                 key={item.label}
                 asChild
                 variant="ghost"
-                className="group gap-2 px-4 text-gray-700 hover:bg-empty"
+                className="group gap-2 px-4 text-gray-700 font-brand-sans hover:bg-empty"
               >
                 <Link to={item.path} className="relative">
                   {item.label}
-                  <span className={`absolute left-0 -bottom-1 w-0 h-1 bg-green-600 rounded-full ${location.pathname === item.path ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
+                  <span className={`absolute left-0 -bottom-1 w-0 h-1 bg-brand-green rounded-full ${location.pathname === item.path ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
                 </Link>
               </Button>
             )
@@ -56,10 +56,10 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-3">
-          <Button variant="ghost" size="icon" className="relative text-gray-700 hover:text-green-600">
+          <Button variant="ghost" size="icon" className="relative text-gray-700 hover:text-brand-green hover:bg-empty hover:shadow-md/20">
             <ShoppingCart className="h-5 w-5" />
             <Badge 
-              className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 bg-green-600 text-xs border-2 border-white"
+              className="absolute -top-1 -right-1 h-4 w-4 flex items-center justify-center p-0 bg-brand-green text-xs font-brand-sans"
             >
               3
             </Badge>
@@ -74,14 +74,14 @@ export function Header() {
                       src={user.image} 
                       alt={user.username}
                     />
-                    <AvatarFallback className="bg-gradient-to-br from-green-500 to-emerald-600 text-white">
+                    <AvatarFallback className="bg-gradient-to-br from-green-500 to-emerald-600 text-white font-brand-sans">
                       {user.firstName?.charAt(0)}{user.lastName?.charAt(0)}
                     </AvatarFallback>
                   </Avatar>
                   <ChevronDown className="h-4 w-4 text-gray-500" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-56">
+              <DropdownMenuContent align="end" className="w-56 font-brand-sans">
                 <div className="flex items-center gap-3 p-2">
                   <Avatar className="h-9 w-9">
                     <AvatarImage src={user.image} />
@@ -114,7 +114,7 @@ export function Header() {
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-            <Button asChild variant="ghost" className="gap-2">
+            <Button asChild variant="ghost" className="gap-2 font-brand-sans hover:bg-empty hover:shadow-md/20">
               <Link to="/login">
                 Sign in
               </Link>
@@ -123,7 +123,7 @@ export function Header() {
         </div>
 
         {isMobileMenuOpen && (
-          <div className="absolute top-16 left-0 right-0 md:hidden bg-white border-b shadow-lg">
+          <div className={`absolute top-16 left-0 right-0 md:hidden ${location.pathname === '/' ? 'bg-brand-celery/95' : 'bg-white/95'} border-b shadow-lg`}>
             <div className="container mx-auto px-4 py-4">
               <nav className="flex flex-col gap-2">
                 {navItems.map((item) => {
@@ -132,12 +132,12 @@ export function Header() {
                       key={item.label}
                       asChild
                       variant="ghost"
-                      className="group justify-start px-4 py-3 text-gray-700 hover:bg-green-50"
+                      className="group justify-start px-4 py-3 text-gray-700 hover:bg-empty font-brand-sans"
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       <Link to={item.path} className="relative w-full text-left">
                         {item.label}
-                        <span className={`absolute left-0 -bottom-1 w-0 h-1 bg-green-600 rounded-full ${location.pathname === item.path ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
+                        <span className={`absolute left-0 -bottom-1 w-0 h-1 bg-brand-green rounded-full ${location.pathname === item.path ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
                       </Link>
                     </Button>
                   )
